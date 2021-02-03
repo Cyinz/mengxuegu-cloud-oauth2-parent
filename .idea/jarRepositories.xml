@@ -16,5 +16,10 @@
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="repo-iss" />
+      <option name="name" value="repo-iss" />
+      <option name="url" value="http://10.18.200.94:10001/nexus/content/groups/public/" />
+    </remote-repository>
   </component>
 </project>
