@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
@@ -91,6 +92,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.tokenStore(tokenStore);
         // 授权码管理策略
         endpoints.authorizationCodeServices(jdbcAuthorizationCodeServices());
+    }
+
+    /**
+     * 令牌端点的安全配置
+     *
+     * @param security
+     * @throws Exception
+     */
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        // 所有人可访问 /oauth/token_key 后面要获取公钥，默认拒绝访问
+        security.tokenKeyAccess("permitAll()");
+        security.checkTokenAccess("isAuthenticated()");
     }
 
 }
